@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLM Expert — Ocean Blue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0f1e2a;
+      --cream: #eef2f5;
+      --accent: #2a6480;
+      --accent-light: #5a9ab5;
+      --accent-pale: #b8d4e0;
+      --warm-white: #f4f7f9;
+      --mid: #4a6070;
+      --rule: #c0d0da;
+      --dark-bg: #0d1e2e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--warm-white); color: var(--ink); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(238,242,245,0.93); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { color: var(--warm-white) !important; background: var(--ink); padding: 0.6rem 1.4rem; border-radius: 2px; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--accent) !important; }
+
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 80px; overflow: hidden; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 6rem 4rem; }
+    .hero-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 1.75rem; }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub { font-size: 1.05rem; font-weight: 300; line-height: 1.75; color: var(--mid); max-width: 480px; margin-bottom: 2.75rem; }
+    .hero-actions { display: flex; gap: 1rem; }
+    .btn-primary { display: inline-block; padding: 0.9rem 2.2rem; background: var(--accent); color: white; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+    .btn-secondary { display: inline-block; padding: 0.9rem 2.2rem; border: 1px solid var(--rule); color: var(--ink); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-right { background: var(--dark-bg); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .hero-svg-wrap { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 3rem; }
+    .hero-svg-caption { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(184,212,224,0.4); text-align: center; }
+    .hero-right::before { content:''; position:absolute; top:-80px; right:-80px; width:300px; height:300px; border:1px solid rgba(90,154,181,0.12); border-radius:50%; }
+    .hero-right::after { content:''; position:absolute; bottom:-60px; left:-60px; width:220px; height:220px; border:1px solid rgba(90,154,181,0.08); border-radius:50%; }
+
+    .marquee-bar { background: var(--accent); overflow: hidden; white-space: nowrap; padding: 0.8rem 0; }
+    .marquee-track { display: inline-block; animation: marquee 28s linear infinite; }
+    .marquee-track span { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: white; padding: 0 2.5rem; }
+    .marquee-track span::after { content: '·'; margin-left: 2.5rem; opacity: 0.5; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    section { padding: 7rem 4rem; }
+    .section-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+    h2 em { font-style: italic; color: var(--accent); }
+    .section-intro { font-size: 1rem; font-weight: 300; color: var(--mid); line-height: 1.75; max-width: 560px; margin-bottom: 3.5rem; }
+
+    #services { background: var(--cream); }
+    .services-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+    .service-card { background: var(--cream); padding: 2.5rem 2rem; transition: background 0.25s; position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .service-card:hover { background: white; }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-num { font-family: 'Playfair Display', serif; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 1.25rem; display: block; }
+    .service-svg { margin-bottom: 1rem; display: block; }
+    .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.75rem; }
+    .service-card p { font-size: 0.88rem; font-weight: 300; color: var(--mid); line-height: 1.7; }
+
+    #about { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .about-box { background: var(--dark-bg); padding: 3.5rem; position: relative; }
+    .about-box::after { content: ''; position: absolute; bottom: -16px; right: -16px; width: 100%; height: 100%; border: 1px solid var(--accent); z-index: -1; }
+    .about-box-title { font-family: 'Playfair Display', serif; font-size: 1.65rem; font-weight: 700; color: white; margin-bottom: 1.25rem; line-height: 1.25; }
+    .about-box-title em { color: var(--accent-light); font-style: italic; }
+    .about-box p { font-size: 0.88rem; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.8; margin-bottom: 1.5rem; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .about-tag { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-light); border: 1px solid rgba(90,154,181,0.3); padding: 0.3rem 0.75rem; border-radius: 2px; }
+    .about-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
+    .about-list li { font-size: 0.9rem; color: var(--mid); padding-left: 1.25rem; position: relative; line-height: 1.6; }
+    .about-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; }
+
+    #blog { background: var(--cream); }
+    .blog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+    .blog-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+    .blog-card { background: var(--cream); padding: 2.5rem; transition: background 0.2s; text-decoration: none; color: inherit; display: block; }
+    .blog-card:hover { background: white; }
+    .blog-card.featured { padding: 3rem; }
+    .blog-tag { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: block; }
+    .blog-card h3 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem; }
+    .blog-card.featured h3 { font-size: 1.55rem; margin-bottom: 1rem; }
+    .blog-card:not(.featured) h3 { font-size: 1.05rem; }
+    .blog-card p { font-size: 0.88rem; font-weight: 300; color: var(--mid); line-height: 1.7; margin-bottom: 1.25rem; }
+    .blog-meta { font-size: 0.75rem; color: var(--mid); opacity: 0.6; }
+    .read-more { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; }
+    .read-more::after { content: '→'; }
+
+    #contact { background: var(--dark-bg); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    #contact h2 { color: white; }
+    #contact h2 em { color: var(--accent-light); }
+    #contact .section-eyebrow { color: var(--accent-light); }
+    #contact .section-eyebrow::before { background: var(--accent-light); }
+    #contact .section-intro { color: rgba(255,255,255,0.4); }
+    .contact-details { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item { display: flex; flex-direction: column; gap: 0.25rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-light); }
+    .contact-value { font-size: 0.95rem; color: rgba(255,255,255,0.6); font-weight: 300; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .form-group input, .form-group textarea, .form-group select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 300; padding: 0.8rem 1rem; border-radius: 2px; outline: none; transition: border-color 0.2s; width: 100%; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent-light); }
+    .form-group select option { background: #0d1e2e; }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.95rem 2.5rem; background: var(--accent); color: white; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; border: none; border-radius: 2px; cursor: pointer; transition: background 0.2s, transform 0.2s; align-self: flex-start; }
+    .form-submit:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    footer { background: #060f18; padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: rgba(255,255,255,0.6); text-decoration: none; }
+    .footer-logo span { color: var(--accent-light); }
+    .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.2); font-weight: 300; }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent-light); }
+
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; } .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
+      #hero { grid-template-columns: 1fr; } .hero-right { display: none; } .hero-left { padding: 4rem 1.5rem; }
+      .services-header { grid-template-columns: 1fr; gap: 1.5rem; } .services-grid { grid-template-columns: 1fr; }
+      #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
+      .blog-header { flex-direction: column; align-items: flex-start; gap: 1rem; } .blog-grid { grid-template-columns: 1fr; }
+      #contact { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; } .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">CLM<span>Expert</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#blog">Insights</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Contract Lifecycle Management</p>
+    <h1>Design.<br><em>Implement.</em><br>Transform.</h1>
+    <p class="hero-sub">Global CLM architecture and implementation consulting — from process design and system configuration to contract migration, metadata extraction, and long-term operational excellence.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start a Conversation</a>
+      <a href="#services" class="btn-secondary">View Services</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-svg-wrap">
+      <!-- OCEAN BLUE RETRO GLOBE -->
+      <svg width="260" height="260" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="130" cy="130" r="100" stroke="#2a6480" stroke-width="1.5" fill="none" opacity="0.6"/>
+        <circle cx="130" cy="130" r="100" stroke="#5a9ab5" stroke-width="0.5" fill="none" opacity="0.2"/>
+        <ellipse cx="130" cy="130" rx="100" ry="30" stroke="#2a6480" stroke-width="1" fill="none" opacity="0.4"/>
+        <ellipse cx="130" cy="130" rx="100" ry="60" stroke="#2a6480" stroke-width="1" fill="none" opacity="0.28"/>
+        <ellipse cx="130" cy="130" rx="100" ry="85" stroke="#2a6480" stroke-width="0.75" fill="none" opacity="0.2"/>
+        <ellipse cx="130" cy="130" rx="35" ry="100" stroke="#2a6480" stroke-width="1" fill="none" opacity="0.4"/>
+        <ellipse cx="130" cy="130" rx="70" ry="100" stroke="#2a6480" stroke-width="0.75" fill="none" opacity="0.28"/>
+        <line x1="130" y1="30" x2="130" y2="230" stroke="#5a9ab5" stroke-width="1" opacity="0.4"/>
+        <line x1="30" y1="130" x2="230" y2="130" stroke="#5a9ab5" stroke-width="1" opacity="0.4"/>
+        <circle cx="130" cy="130" r="4" fill="#5a9ab5" opacity="0.95"/>
+        <circle cx="78" cy="98" r="3" fill="#2a6480" opacity="0.9"/>
+        <circle cx="172" cy="93" r="3" fill="#2a6480" opacity="0.9"/>
+        <circle cx="157" cy="162" r="3" fill="#2a6480" opacity="0.9"/>
+        <circle cx="93" cy="167" r="3" fill="#2a6480" opacity="0.9"/>
+        <circle cx="58" cy="142" r="2.5" fill="#5a9ab5" opacity="0.65"/>
+        <circle cx="202" cy="128" r="2.5" fill="#5a9ab5" opacity="0.65"/>
+        <circle cx="130" cy="53" r="2.5" fill="#5a9ab5" opacity="0.65"/>
+        <line x1="130" y1="130" x2="78" y2="98" stroke="#5a9ab5" stroke-width="0.75" opacity="0.5" stroke-dasharray="3 3"/>
+        <line x1="130" y1="130" x2="172" y2="93" stroke="#5a9ab5" stroke-width="0.75" opacity="0.5" stroke-dasharray="3 3"/>
+        <line x1="130" y1="130" x2="157" y2="162" stroke="#5a9ab5" stroke-width="0.75" opacity="0.5" stroke-dasharray="3 3"/>
+        <line x1="130" y1="130" x2="93" y2="167" stroke="#5a9ab5" stroke-width="0.75" opacity="0.5" stroke-dasharray="3 3"/>
+        <line x1="78" y1="98" x2="172" y2="93" stroke="#2a6480" stroke-width="0.5" opacity="0.3" stroke-dasharray="2 4"/>
+        <line x1="93" y1="167" x2="157" y2="162" stroke="#2a6480" stroke-width="0.5" opacity="0.3" stroke-dasharray="2 4"/>
+        <circle cx="130" cy="130" r="118" stroke="#2a6480" stroke-width="0.5" fill="none" stroke-dasharray="4 6" opacity="0.3"/>
+        <line x1="130" y1="12" x2="130" y2="20" stroke="#5a9ab5" stroke-width="1" opacity="0.5"/>
+        <line x1="130" y1="240" x2="130" y2="248" stroke="#5a9ab5" stroke-width="1" opacity="0.5"/>
+        <line x1="12" y1="130" x2="20" y2="130" stroke="#5a9ab5" stroke-width="1" opacity="0.5"/>
+        <line x1="240" y1="130" x2="248" y2="130" stroke="#5a9ab5" stroke-width="1" opacity="0.5"/>
+        <!-- Wave detail — ocean reference -->
+        <path d="M 65 155 Q 80 148 95 155 Q 110 162 125 155 Q 140 148 155 155 Q 170 162 185 155" stroke="#5a9ab5" stroke-width="0.75" fill="none" opacity="0.25"/>
+        <path d="M 70 163 Q 85 156 100 163 Q 115 170 130 163 Q 145 156 160 163 Q 175 170 190 163" stroke="#5a9ab5" stroke-width="0.5" fill="none" opacity="0.15"/>
+      </svg>
+      <p class="hero-svg-caption">Global CLM Implementation Network</p>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>CLM Platform Selection</span><span>Implementation & Deployment</span><span>Change Management</span><span>Contract Process Design</span><span>Metadata Extraction</span><span>Contract Migration</span><span>Post Go-Live Support</span><span>CLM Platform Selection</span><span>Implementation & Deployment</span><span>Change Management</span><span>Contract Process Design</span><span>Metadata Extraction</span><span>Contract Migration</span><span>Post Go-Live Support</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="services-header">
+    <div>
+      <p class="section-eyebrow fade-up">What We Do</p>
+      <h2 class="fade-up">Every phase of the<br><em>CLM journey</em></h2>
+    </div>
+    <p class="section-intro fade-up">From first blueprint to final go-live — and everything in between. CLM Expert delivers hands-on consulting across the complete contract lifecycle management spectrum.</p>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card fade-up">
+      <span class="service-num">01</span>
+      <svg class="service-svg" width="52" height="36" viewBox="0 0 52 36" fill="none">
+        <rect x="1" y="1" width="14" height="9" rx="1" stroke="#2a6480" stroke-width="1.2"/>
+        <rect x="19" y="1" width="14" height="9" rx="1" stroke="#2a6480" stroke-width="1.2"/>
+        <rect x="37" y="1" width="14" height="9" rx="1" stroke="#2a6480" stroke-width="1.2"/>
+        <line x1="15" y1="5.5" x2="19" y2="5.5" stroke="#2a6480" stroke-width="1"/>
+        <line x1="33" y1="5.5" x2="37" y2="5.5" stroke="#2a6480" stroke-width="1"/>
+        <rect x="10" y="25" width="14" height="9" rx="1" stroke="#5a9ab5" stroke-width="1.2"/>
+        <rect x="28" y="25" width="14" height="9" rx="1" stroke="#5a9ab5" stroke-width="1.2"/>
+        <line x1="17" y1="10" x2="17" y2="25" stroke="#2a6480" stroke-width="0.8" stroke-dasharray="2 2"/>
+        <line x1="35" y1="10" x2="35" y2="25" stroke="#2a6480" stroke-width="0.8" stroke-dasharray="2 2"/>
+        <line x1="24" y1="29.5" x2="28" y2="29.5" stroke="#5a9ab5" stroke-width="1"/>
+      </svg>
+      <h3>CLM Platform Selection</h3>
+      <p>Vendor-agnostic evaluation and selection support. We assess your requirements, map them to platform capabilities, and help you choose the right CLM system for your organization's scale and complexity.</p>
+    </div>
+
+    <div class="service-card fade-up">
+      <span class="service-num">02</span>
+      <svg class="service-svg" width="48" height="36" viewBox="0 0 48 36" fill="none">
+        <circle cx="18" cy="18" r="7" stroke="#2a6480" stroke-width="1.2"/>
+        <circle cx="18" cy="18" r="3" stroke="#2a6480" stroke-width="1"/>
+        <line x1="18" y1="7" x2="18" y2="4" stroke="#2a6480" stroke-width="1.5"/>
+        <line x1="18" y1="29" x2="18" y2="32" stroke="#2a6480" stroke-width="1.5"/>
+        <line x1="7" y1="18" x2="4" y2="18" stroke="#2a6480" stroke-width="1.5"/>
+        <line x1="29" y1="18" x2="32" y2="18" stroke="#2a6480" stroke-width="1.5"/>
+        <line x1="10.2" y1="10.2" x2="8.1" y2="8.1" stroke="#2a6480" stroke-width="1.5"/>
+        <line x1="25.8" y1="25.8" x2="27.9" y2="27.9" stroke="#2a6480" stroke-width="1.5"/>
+        <line x1="25.8" y1="10.2" x2="27.9" y2="8.1" stroke="#2a6480" stroke-width="1.5"/>
+        <line x1="10.2" y1="25.8" x2="8.1" y2="27.9" stroke="#2a6480" stroke-width="1.5"/>
+        <circle cx="36" cy="26" r="5" stroke="#5a9ab5" stroke-width="1"/>
+        <circle cx="36" cy="26" r="2" stroke="#5a9ab5" stroke-width="0.8"/>
+        <line x1="36" y1="19" x2="36" y2="21" stroke="#5a9ab5" stroke-width="1.2"/>
+        <line x1="36" y1="31" x2="36" y2="33" stroke="#5a9ab5" stroke-width="1.2"/>
+        <line x1="29" y1="26" x2="31" y2="26" stroke="#5a9ab5" stroke-width="1.2"/>
+        <line x1="41" y1="26" x2="43" y2="26" stroke="#5a9ab5" stroke-width="1.2"/>
+      </svg>
+      <h3>Implementation & Deployment</h3>
+      <p>End-to-end system configuration, workflow design, and deployment management. We translate your business processes into a fully operational CLM environment — on time and on budget.</p>
+    </div>
+
+    <div class="service-card fade-up">
+      <span class="service-num">03</span>
+      <svg class="service-svg" width="52" height="36" viewBox="0 0 52 36" fill="none">
+        <rect x="1" y="1" width="50" height="34" rx="1.5" stroke="#2a6480" stroke-width="1" fill="none" stroke-dasharray="3 2" opacity="0.4"/>
+        <line x1="8" y1="8" x2="22" y2="8" stroke="#2a6480" stroke-width="1.2"/>
+        <line x1="8" y1="13" x2="18" y2="13" stroke="#2a6480" stroke-width="0.8" opacity="0.6"/>
+        <line x1="8" y1="18" x2="20" y2="18" stroke="#2a6480" stroke-width="0.8" opacity="0.6"/>
+        <line x1="8" y1="23" x2="15" y2="23" stroke="#2a6480" stroke-width="0.8" opacity="0.6"/>
+        <line x1="8" y1="28" x2="22" y2="28" stroke="#2a6480" stroke-width="1.2"/>
+        <rect x="28" y="7" width="16" height="22" rx="1" stroke="#5a9ab5" stroke-width="1.2"/>
+        <line x1="31" y1="12" x2="41" y2="12" stroke="#5a9ab5" stroke-width="0.8" opacity="0.7"/>
+        <line x1="31" y1="16" x2="39" y2="16" stroke="#5a9ab5" stroke-width="0.8" opacity="0.7"/>
+        <line x1="31" y1="20" x2="41" y2="20" stroke="#5a9ab5" stroke-width="0.8" opacity="0.7"/>
+        <line x1="31" y1="24" x2="37" y2="24" stroke="#5a9ab5" stroke-width="0.8" opacity="0.7"/>
+      </svg>
+      <h3>Contract Process Design</h3>
+      <p>Before any system is configured, the process must be right. We design contract workflows, approval hierarchies, and obligation management frameworks that align legal, procurement, and operations.</p>
+    </div>
+
+    <div class="service-card fade-up">
+      <span class="service-num">04</span>
+      <svg class="service-svg" width="52" height="36" viewBox="0 0 52 36" fill="none">
+        <circle cx="12" cy="12" r="5" stroke="#2a6480" stroke-width="1.2"/>
+        <path d="M4 30 C4 22 20 22 20 30" stroke="#2a6480" stroke-width="1.2" fill="none"/>
+        <circle cx="30" cy="12" r="5" stroke="#5a9ab5" stroke-width="1.2"/>
+        <path d="M22 30 C22 22 38 22 38 30" stroke="#5a9ab5" stroke-width="1.2" fill="none"/>
+        <circle cx="44" cy="12" r="4" stroke="#2a6480" stroke-width="1" opacity="0.6"/>
+        <path d="M38 30 C38 23 50 23 50 30" stroke="#2a6480" stroke-width="1" fill="none" opacity="0.6"/>
+        <line x1="12" y1="17" x2="30" y2="17" stroke="#2a6480" stroke-width="0.75" stroke-dasharray="2 2" opacity="0.5"/>
+        <line x1="30" y1="17" x2="44" y2="16" stroke="#2a6480" stroke-width="0.75" stroke-dasharray="2 2" opacity="0.5"/>
+      </svg>
+      <h3>Change Management & Training</h3>
+      <p>Technology without adoption is wasted investment. We design and deliver training programs, communication plans, and organizational change strategies that drive real CLM utilization.</p>
+    </div>
+
+    <div class="service-card fade-up">
+      <span class="service-num">05</span>
+      <svg class="service-svg" width="52" height="36" viewBox="0 0 52 36" fill="none">
+        <rect x="1" y="5" width="18" height="26" rx="2" stroke="#2a6480" stroke-width="1.2"/>
+        <line x1="4" y1="11" x2="16" y2="11" stroke="#2a6480" stroke-width="0.8" opacity="0.6"/>
+        <line x1="4" y1="15" x2="14" y2="15" stroke="#2a6480" stroke-width="0.8" opacity="0.6"/>
+        <line x1="4" y1="19" x2="16" y2="19" stroke="#2a6480" stroke-width="0.8" opacity="0.6"/>
+        <line x1="4" y1="23" x2="12" y2="23" stroke="#2a6480" stroke-width="0.8" opacity="0.6"/>
+        <line x1="4" y1="27" x2="16" y2="27" stroke="#2a6480" stroke-width="0.8" opacity="0.6"/>
+        <path d="M22 18 L29 18 M27 15 L30 18 L27 21" stroke="#5a9ab5" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <rect x="33" y="5" width="18" height="26" rx="2" stroke="#5a9ab5" stroke-width="1.2"/>
+        <line x1="36" y1="11" x2="48" y2="11" stroke="#5a9ab5" stroke-width="0.8" opacity="0.8"/>
+        <line x1="36" y1="15" x2="46" y2="15" stroke="#5a9ab5" stroke-width="0.8" opacity="0.8"/>
+        <line x1="36" y1="19" x2="48" y2="19" stroke="#5a9ab5" stroke-width="0.8" opacity="0.8"/>
+        <line x1="36" y1="23" x2="44" y2="23" stroke="#5a9ab5" stroke-width="0.8" opacity="0.8"/>
+        <line x1="36" y1="27" x2="48" y2="27" stroke="#5a9ab5" stroke-width="0.8" opacity="0.8"/>
+      </svg>
+      <h3>Contract Migration & Metadata Extraction</h3>
+      <p>Legacy contracts don't migrate themselves. We extract, clean, and structure metadata from existing repositories — ensuring your historical data is fully searchable inside your new CLM.</p>
+    </div>
+
+    <div class="service-card fade-up">
+      <span class="service-num">06</span>
+      <svg class="service-svg" width="52" height="36" viewBox="0 0 52 36" fill="none">
+        <polyline points="2,28 10,28 14,10 18,22 22,18 26,28 30,28 34,8 38,20 42,16 46,20 50,20" stroke="#2a6480" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="34" cy="8" r="2.5" fill="none" stroke="#5a9ab5" stroke-width="1"/>
+        <line x1="2" y1="32" x2="50" y2="32" stroke="#2a6480" stroke-width="0.8" opacity="0.3"/>
+      </svg>
+      <h3>Post Go-Live Support</h3>
+      <p>Implementation day is just the beginning. We provide ongoing optimization, system health checks, user support, and continuous improvement consulting to protect and extend your CLM investment.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-visual fade-up">
+    <div class="about-box">
+      <svg width="100%" height="120" viewBox="0 0 320 120" fill="none" style="margin-bottom:1.5rem; opacity:0.7">
+        <line x1="0" y1="20" x2="320" y2="20" stroke="#2a6480" stroke-width="0.5" opacity="0.3"/>
+        <line x1="0" y1="45" x2="320" y2="45" stroke="#2a6480" stroke-width="0.5" opacity="0.3"/>
+        <line x1="0" y1="70" x2="320" y2="70" stroke="#2a6480" stroke-width="0.5" opacity="0.3"/>
+        <line x1="0" y1="95" x2="320" y2="95" stroke="#2a6480" stroke-width="0.5" opacity="0.3"/>
+        <rect x="10" y="26" width="120" height="12" rx="1" fill="#2a6480" opacity="0.55"/>
+        <rect x="10" y="26" width="120" height="12" rx="1" fill="none" stroke="#5a9ab5" stroke-width="0.5"/>
+        <rect x="50" y="51" width="160" height="12" rx="1" fill="#2a6480" opacity="0.38"/>
+        <rect x="50" y="51" width="160" height="12" rx="1" fill="none" stroke="#5a9ab5" stroke-width="0.5"/>
+        <rect x="100" y="76" width="180" height="12" rx="1" fill="#5a9ab5" opacity="0.3"/>
+        <rect x="100" y="76" width="180" height="12" rx="1" fill="none" stroke="#5a9ab5" stroke-width="0.5"/>
+        <rect x="30" y="101" width="240" height="12" rx="1" fill="#2a6480" opacity="0.2"/>
+        <rect x="30" y="101" width="240" height="12" rx="1" fill="none" stroke="#2a6480" stroke-width="0.5"/>
+        <text x="14" y="35" font-family="DM Sans" font-size="7" fill="#b8d4e0" opacity="0.8">Discovery & Design</text>
+        <text x="54" y="60" font-family="DM Sans" font-size="7" fill="#b8d4e0" opacity="0.8">Configuration & Build</text>
+        <text x="104" y="85" font-family="DM Sans" font-size="7" fill="#b8d4e0" opacity="0.8">Migration & Testing</text>
+        <text x="34" y="110" font-family="DM Sans" font-size="7" fill="#b8d4e0" opacity="0.8">Go-Live & Hypercare</text>
+        <polygon points="130,20 135,26 130,32 125,26" fill="#5a9ab5" opacity="0.9"/>
+        <polygon points="210,45 215,51 210,57 205,51" fill="#5a9ab5" opacity="0.9"/>
+        <polygon points="280,70 285,76 280,82 275,76" fill="#5a9ab5" opacity="0.9"/>
+      </svg>
+      <p class="about-box-title">Built by someone who has done the <em>hard work</em> of CLM at scale.</p>
+      <p>CLM Expert was founded by a corporate legal professional with deep, hands-on experience implementing contract lifecycle management systems for global organizations — across industries, time zones, and platforms.</p>
+      <div class="about-tags">
+        <span class="about-tag">Leah (ContractPodAi)</span>
+        <span class="about-tag">Ironclad</span>
+        <span class="about-tag">Icertis</span>
+        <span class="about-tag">Agiloft</span>
+        <span class="about-tag">Conga</span>
+        <span class="about-tag">DocuSign CLM</span>
+        <span class="about-tag">Coupa</span>
+      </div>
+    </div>
+  </div>
+  <div class="about-text">
+    <p class="section-eyebrow fade-up">Why CLM Expert</p>
+    <h2 class="fade-up">Practitioner expertise,<br><em>not consultant theory</em></h2>
+    <p class="section-intro fade-up">We've lived inside global CLM implementations — and we bring that real-world perspective to every engagement.</p>
+    <ul class="about-list fade-up">
+      <li>Vendor-agnostic — we recommend what's right for you, not what pays us commissions</li>
+      <li>Global experience across legal, procurement, and operations teams</li>
+      <li>Specialized in complex migrations with large contract repositories</li>
+      <li>Fluent in the full CLM ecosystem, from niche tools to enterprise platforms</li>
+      <li>Remote-first and available to clients across every time zone</li>
+    </ul>
+    <a href="#contact" class="btn-primary fade-up">Work With Us</a>
+  </div>
+</section>
+
+<section id="blog">
+  <div class="blog-header">
+    <div>
+      <p class="section-eyebrow fade-up">Insights & Expertise</p>
+      <h2 class="fade-up">The CLM <em>Insider</em></h2>
+    </div>
+    <a href="#blog" class="btn-secondary fade-up">All Articles →</a>
+  </div>
+  <div class="blog-grid">
+    <a href="#leah-article" class="blog-card featured fade-up">
+      <span class="blog-tag">Featured · Agentic CLM · Leah AI</span>
+      <h3>Leah Is Not a CLM. It's What Comes After the CLM Era.</h3>
+      <p>Every other platform stored contracts and routed them to people. Leah — formerly ContractPodAi — is the first system built from scratch for autonomous commercial execution. Here's what that actually means for legal ops and procurement teams.</p>
+      <div class="read-more">Read Article</div>
+      <div class="blog-meta" style="margin-top:1rem;">April 2025 · 7 min read</div>
+    </a>
+    <a href="#" class="blog-card fade-up">
+      <span class="blog-tag">Implementation</span>
+      <h3>Why 70% of CLM Implementations Fail — And What the Successful Ones Do Differently</h3>
+      <p>Most CLM failures aren't technology failures. They're process and change management failures. Here's what separates the projects that go live from the ones quietly shelved.</p>
+      <div class="read-more">Read Article</div>
+      <div class="blog-meta" style="margin-top:1rem;">March 2025 · 8 min read</div>
+    </a>
+    <a href="#" class="blog-card fade-up">
+      <span class="blog-tag">Platform Selection</span>
+      <h3>Icertis vs. Ironclad: Enterprise vs. High-Growth CLM</h3>
+      <p>A practical breakdown for legal ops teams trying to make the right platform call without getting lost in vendor demos.</p>
+      <div class="read-more">Read Article</div>
+      <div class="blog-meta" style="margin-top:1rem;">February 2025 · 6 min read</div>
+    </a>
+  </div>
+
+  <!-- LEAH FULL ARTICLE -->
+  <div id="leah-article" style="margin-top:4rem; border-top:1px solid var(--rule); padding-top:4rem;">
+    <div style="max-width:760px;">
+      <span class="blog-tag">Agentic CLM · Leah AI · Platform Deep Dive</span>
+      <h2 style="margin-bottom:1.5rem;">Leah Is Not a CLM.<br><em>It's What Comes After the CLM Era.</em></h2>
+      <p style="font-size:0.8rem; color:var(--mid); margin-bottom:2.5rem; letter-spacing:0.05em;">April 2025 · 7 min read · By CLM Expert</p>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:1.75rem;">Every CLM platform you've evaluated — Ironclad, Icertis, Agiloft, Conga, DocuSign CLM — was built around the same fundamental assumption: a human is always in the loop. Contracts flow through the system, but a person still reviews, approves, and routes at every meaningful step. These platforms made that process faster. They did not change what the process fundamentally was.</p>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:1.75rem;">Leah — formerly ContractPodAi, rebranded in 2024 — is doing something categorically different. It is the first CLM-originated platform built from scratch as a native agentic system. That distinction matters more than it might sound.</p>
+
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; margin-bottom:1rem; margin-top:2.5rem; color:var(--ink);">What "agentic" actually means — and why it's not just a marketing word</h3>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:1.75rem;">When most enterprise software companies say "AI-powered," they mean they added a large language model on top of an existing workflow tool. The underlying architecture — designed for human handoffs — stays exactly the same. AI assists the human. The human still moves the work.</p>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:1.75rem;">Agentic architecture is different. An agentic system deploys specialized AI agents that execute tasks end-to-end — drafting, reviewing, routing, flagging, tracking obligations — without waiting for a person to push it forward. The orchestration layer coordinates these agents across legal, contracting, and procurement simultaneously, with shared context. If something changes mid-execution, the system self-corrects and continues. No escalation. No stall.</p>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:1.75rem;">This is not a feature that can be retrofitted onto a storage-and-routing system. You cannot bolt orchestration onto an architecture designed for human steps. That is the ceiling every traditional CLM vendor has hit — and the reason Leah was rebuilt from scratch.</p>
+
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; margin-bottom:1rem; margin-top:2.5rem; color:var(--ink);">The ContractPodAi origin — and why it matters</h3>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:1.75rem;">What makes Leah credible isn't just the technology. It's the decade ContractPodAi spent operating inside enterprise CLM at scale — Fortune 500 legal, contracting, and procurement, in the real complexity of global organizations. They didn't theorize about what commercial operations needed from an autonomous system. They lived it. They saw exactly where the human-in-the-loop model broke down, where data got siloed between legal and procurement, where obligations fell through the gaps between functions.</p>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:1.75rem;">That operational depth is what no competitor can replicate from the outside. Leah is the rare case of a company that built the previous category, recognized its fundamental ceiling, and had the conviction to start over.</p>
+
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; margin-bottom:1rem; margin-top:2.5rem; color:var(--ink);">What this means for CLM selection and implementation today</h3>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:1.75rem;">If you are evaluating CLM platforms right now, Leah changes the conversation. Traditional CLM selection was about features: workflow configurability, clause libraries, integration depth, reporting. Those criteria still matter. But there is now a more fundamental question on the table: do you want a system that assists humans through a process, or a system that executes the process autonomously and surfaces humans only when genuinely needed?</p>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:1.75rem;">For many organizations — particularly those with high contract volumes, complex cross-functional workflows, or global procurement operations — the answer to that question will define the next decade of their legal and commercial operations.</p>
+
+      <div style="background:var(--cream); border-left:3px solid var(--accent); padding:1.5rem 2rem; margin:2.5rem 0; border-radius:0 2px 2px 0;">
+        <p style="font-size:0.95rem; font-weight:400; line-height:1.75; color:var(--ink); font-style:italic;">"The category is moving from systems that store and route commercial work — to systems that actually execute it. Leah is the first platform built for that third era."</p>
+      </div>
+
+      <p style="font-size:1.05rem; font-weight:300; line-height:1.85; color:var(--mid); margin-bottom:2.5rem;">At CLM Expert, we are vendor-agnostic — we recommend what is right for each organization based on their specific scale, complexity, and readiness. But we pay close attention to where the market is heading. Leah is the clearest signal yet that the CLM category is undergoing a fundamental architectural shift. Understanding that shift is part of what we bring to every engagement.</p>
+
+      <a href="#contact" class="btn-primary">Talk to us about CLM platform selection →</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div>
+    <p class="section-eyebrow">Let's Talk</p>
+    <h2>Ready to build something<br><em>that works?</em></h2>
+    <p class="section-intro">Whether you're selecting your first CLM or rescuing a stalled implementation — we're the call you want to make first.</p>
+    <div class="contact-details">
+      <div class="contact-item"><span class="contact-label">Email</span><span class="contact-value">hello@clmexpert.com</span></div>
+      <div class="contact-item"><span class="contact-label">Based In</span><span class="contact-value">São Paulo, Brazil · Available Globally</span></div>
+      <div class="contact-item"><span class="contact-label">Response Time</span><span class="contact-value">Within 24 hours</span></div>
+    </div>
+  </div>
+  <div class="contact-form">
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input type="text" placeholder="Jane"/></div>
+      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith"/></div>
+    </div>
+    <div class="form-group"><label>Company Email</label><input type="email" placeholder="jane@company.com"/></div>
+    <div class="form-group">
+      <label>What brings you here?</label>
+      <select>
+        <option value="" disabled selected>Select a service area</option>
+        <option>CLM Platform Selection</option>
+        <option>Implementation & Deployment</option>
+        <option>Contract Process Design</option>
+        <option>Change Management & Training</option>
+        <option>Contract Migration & Metadata Extraction</option>
+        <option>Post Go-Live Support</option>
+        <option>Not sure yet — let's talk</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Tell us about your project</label><textarea placeholder="What CLM platform are you evaluating or using? What stage are you at? What's not working?"></textarea></div>
+    <button class="form-submit">Send Message →</button>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="footer-logo">CLM<span>Expert</span></a>
+  <p class="footer-copy">© 2025 CLM Expert. All rights reserved.</p>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#blog">Insights</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelector('.form-submit').addEventListener('click', () => alert('Thanks! Form will connect to your email once deployed.'));
+</script>
+</body>
+</html>
